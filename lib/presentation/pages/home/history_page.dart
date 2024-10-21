@@ -26,7 +26,10 @@ class _HistoryPageState extends State<HistoryPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Histórico'),
+        title: const Text(
+          'Histórico',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Container(
         width: size.width,
@@ -34,28 +37,212 @@ class _HistoryPageState extends State<HistoryPage> {
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
-        child: Column(
-          children: [
-            (history == null)
-                ? const Text('Nenhum registro')
-                : Column(
-                    children: [
-                      Text('Peso: ${history.weight}'),
-                      Text('Altura: ${history.height}'),
-                      Text('Idade: ${history.age}'),
-                      Text('Gênero: ${history.gender.displayName}'),
-                      Text(
-                          'Nível de atividade: ${history.activityLevel.displayName}'),
-                      Text('Objetivo: ${history.goal.displayName}'),
-                      Text('Calorias: ${history.caloriesDay.roundToDouble()}'),
-                    ],
-                  ),
-            TextButton(
-                onPressed: () {
-                  repository.clear();
-                },
-                child: const Text('Limpar'))
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                (history == null)
+                    ? const Text('Nenhum registro')
+                    : Container(
+                        padding: const EdgeInsets.all(20.0),
+                        height: size.height * 0.6,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 244, 67, 54),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Peso: ',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      children: [
+                                        TextSpan(
+                                          text: history.weight.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Altura: ',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      children: [
+                                        TextSpan(
+                                          text: history.height.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Idade: ',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      children: [
+                                        TextSpan(
+                                          text: history.age.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Gênero: ',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      children: [
+                                        TextSpan(
+                                          text: history.gender.displayName,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Nível de atividade: ',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              history.activityLevel.displayName,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Objetivo: ',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      children: [
+                                        TextSpan(
+                                          text: history.goal.displayName,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Calorias: ',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      children: [
+                                        TextSpan(
+                                          text: history.caloriesDay
+                                              .roundToDouble()
+                                              .toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        fixedSize:
+                            MaterialStateProperty.all(const Size(200, 50)),
+                      ),
+                      onPressed: () {
+                        repository.clear();
+                      },
+                      child: const Text(
+                        'Limpar',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

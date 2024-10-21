@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       title: '3Apps Challenge',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
       home: const HomePage(),

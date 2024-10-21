@@ -41,9 +41,7 @@ class _ResultPageState extends State<ResultPage> {
       showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return Container(
-            height: size.height,
-            width: size.width,
+          return SizedBox(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: SingleChildScrollView(
@@ -56,8 +54,8 @@ class _ResultPageState extends State<ResultPage> {
                     Text(
                       article.title,
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(article.author),
                     article.tags.isNotEmpty
@@ -80,41 +78,84 @@ class _ResultPageState extends State<ResultPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Resultado"),
+          title: const Text(
+            "Resultado",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-        body: Column(
-          children: [
-            Text(widget.dataUser.caloriesDay.toString()),
-            AnimatedBuilder(
-                animation: Listenable.merge([
-                  articlesStore.isLoading,
-                  articlesStore.list,
-                  articlesStore.error
-                ]),
-                builder: (context, child) {
-                  if (articlesStore.isLoading.value) {
-                    return const CircularProgressIndicator();
-                  } else if (articlesStore.error.value.isNotEmpty) {
-                    return Text(articlesStore.error.value);
-                  } else {
-                    var filteredList = articlesStore.list.value
-                        .where((article) => article.goal == filter)
-                        .toList();
+        body: SizedBox(
+          width: size.width,
+          height: size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 100,
+                width: size.width * 0.8,
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 244, 67, 54),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Meta: ',
+                      style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                      children: [
+                        TextSpan(
+                          text: widget.dataUser.caloriesDay
+                              .roundToDouble()
+                              .toString(),
+                          style: const TextStyle(fontWeight: FontWeight.normal),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'Clica em um artigo para ver mais detalhes',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              AnimatedBuilder(
+                  animation: Listenable.merge([
+                    articlesStore.isLoading,
+                    articlesStore.list,
+                    articlesStore.error
+                  ]),
+                  builder: (context, child) {
+                    if (articlesStore.isLoading.value) {
+                      return const CircularProgressIndicator();
+                    } else if (articlesStore.error.value.isNotEmpty) {
+                      return Text(articlesStore.error.value);
+                    } else {
+                      var filteredList = articlesStore.list.value
+                          .where((article) => article.goal == filter)
+                          .toList();
 
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: filteredList.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(filteredList[index].title),
-                            onTap: () => openBottomSheet(filteredList[index]),
-                          );
-                        },
-                      ),
-                    );
-                  }
-                })
-          ],
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: filteredList.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(filteredList[index].title),
+                              onTap: () => openBottomSheet(filteredList[index]),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                  }),
+            ],
+          ),
         ));
   }
 }
